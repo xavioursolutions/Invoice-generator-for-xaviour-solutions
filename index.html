@@ -686,6 +686,22 @@
               <label for="fromPhone">Phone</label>
               <input type="text" id="fromPhone" value="+92 302 1477008">
             </div>
+            <div class="field full">
+              <label for="fromBankName">Bank Name</label>
+              <input type="text" id="fromBankName" value="Meezan Bank">
+            </div>
+            <div class="field">
+              <label for="fromAccountNumber">Account Number</label>
+              <input type="text" id="fromAccountNumber" value="04030113551311">
+            </div>
+            <div class="field">
+              <label for="fromIban">IBAN</label>
+              <input type="text" id="fromIban" value="PK95MEZN0004030113551311">
+            </div>
+            <div class="field full">
+              <label for="fromBranch">Branch</label>
+              <input type="text" id="fromBranch" value="PEOPLE'S COLONY BR-FSD">
+            </div>
           </div>
         </div>
 
@@ -882,6 +898,10 @@
         fromAddress: $('#fromAddress'),
         fromEmail: $('#fromEmail'),
         fromPhone: $('#fromPhone'),
+        fromBankName: $('#fromBankName'),
+        fromAccountNumber: $('#fromAccountNumber'),
+        fromIban: $('#fromIban'),
+        fromBranch: $('#fromBranch'),
         toName: $('#toName'),
         toAbn: $('#toAbn'),
         toAddress: $('#toAddress'),
@@ -1042,11 +1062,16 @@
         $('#pvFinancialYear').textContent = fields.financialYear.value || '—';
 
         $('#pvFromName').textContent = fields.fromName.value || '—';
-        $('#pvFromDetails').innerHTML = [
+        const fromParts = [
           fields.fromAddress.value,
           fields.fromEmail.value ? '<a href="mailto:' + escAttr(fields.fromEmail.value) + '">' + escHtml(fields.fromEmail.value) + '</a>' : '',
           fields.fromPhone.value ? 'Tel: ' + escHtml(fields.fromPhone.value) : '',
-        ].filter(Boolean).join('<br>');
+        ];
+        if (fields.fromBankName.value) fromParts.push('Bank: ' + escHtml(fields.fromBankName.value));
+        if (fields.fromAccountNumber.value) fromParts.push('Acc: ' + escHtml(fields.fromAccountNumber.value));
+        if (fields.fromIban.value) fromParts.push('IBAN: ' + escHtml(fields.fromIban.value));
+        if (fields.fromBranch.value) fromParts.push('Branch: ' + escHtml(fields.fromBranch.value));
+        $('#pvFromDetails').innerHTML = fromParts.filter(Boolean).join('<br>');
 
         $('#pvToName').textContent = fields.toName.value || '—';
         const toParts = [];
@@ -1120,6 +1145,7 @@
       function bindEvents() {
         const previewFields = [
           'fromName', 'fromAddress', 'fromEmail', 'fromPhone',
+          'fromBankName', 'fromAccountNumber', 'fromIban', 'fromBranch',
           'toName', 'toAbn', 'toAddress', 'toEmail', 'toPhone',
           'serviceDescription', 'notes', 'currency', 'taxRate', 'applyTax', 'dueDate',
         ];
