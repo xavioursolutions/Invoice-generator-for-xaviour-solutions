@@ -631,7 +631,7 @@
           <div class="form-grid form-grid-3">
             <div class="field">
               <label for="invoiceNumber">Invoice Number</label>
-              <input type="text" id="invoiceNumber" readonly>
+              <input type="text" id="invoiceNumber">
             </div>
             <div class="field">
               <label for="invoiceDate">Invoice Date</label>
@@ -1144,6 +1144,7 @@
 
       function bindEvents() {
         const previewFields = [
+          'invoiceNumber',
           'fromName', 'fromAddress', 'fromEmail', 'fromPhone',
           'fromBankName', 'fromAccountNumber', 'fromIban', 'fromBranch',
           'toName', 'toAbn', 'toAddress', 'toEmail', 'toPhone',
@@ -1157,7 +1158,6 @@
 
         fields.invoiceDate.addEventListener('change', () => {
           updateFinancialYear();
-          generateInvoiceNumber(false);
           updatePreview();
         });
 
